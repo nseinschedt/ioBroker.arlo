@@ -16,7 +16,6 @@ function startAdapter(options) {
             const idParts = id.split('.')
             const action = idParts.pop()
             const deviceId = idParts.pop()
-            adapter.log.info(id)
             let callback = null
             if(action === 'snapshot' && state.val) {
                 callback = device => {
@@ -62,7 +61,7 @@ function startAdapter(options) {
                                 common: {name: device.getType() + ' - ' + device.getName()},
                                 native: {}
                             })
-                        })5
+                        })
                     devices
                         .filter(device => device.getType() === ArloConstants.TYPE_CAMERA || device.getType() === ArloConstants.TYPE_ARLOQS)
                         .forEach(device => {
