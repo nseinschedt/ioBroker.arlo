@@ -1,0 +1,52 @@
+{
+  "common": {
+    "name": "arlo",
+    "version": "1.0.0",
+    "news": {
+      "1.0.0": {
+        "en": "Arlo",
+        "de": "Arlo"
+      }
+    },
+    "title": "Arlo",
+    "titleLang": {
+      "en": "Arlo",
+      "de": "Arlo"
+    },
+    "desc": {
+      "en": "This is an ioBroker adapter for your Arlo Cameras",
+      "de": "Dies ist ein ioBroker-Adapter für Ihre Arlo Kameras"
+    },
+    "compact": true,
+    "platform": "Javascript/Node.js",
+    "license": "MIT",
+    "authors": [
+      "nseinschedt <nseinschedt@gmail.com>"
+    ],
+    "mode": "daemon",
+    "icon": "arlo.png",
+    "materialize": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/nseinschedt/ioBroker.arlo/master/admin/arlo.png",
+    "keywords": [
+      "arlo",
+      "cam"
+    ],
+    "readme": "https://github.com/nseinschedt/ioBroker.arlo/blob/master/README.md",
+    "loglevel": "info",
+    "type": "multimedia",
+    "instanceObjects": [{
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If communication with arlo works",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }]
+  }
+}

@@ -1,0 +1,7 @@
+gulpfile.js
+admin/i18n
+node_modules
+.idea
+.git
+/node_modules
+package-lock.json

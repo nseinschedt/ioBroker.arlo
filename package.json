@@ -1,0 +1,27 @@
+{
+  "name": "iobroker.arlo",
+  "version": "1.0.0",
+  "description": "ioBroker Arlo Adapter",
+  "author": {
+    "name": "nseinschedt",
+    "email": "nseinschedt@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "arlo",
+    "cam"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nseinschedt/ioBroker.arlo"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^1.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "axios": "^0.18.0"
+  },
+  "main": "main.js",
+  "readmeFilename": "README.md"
+}
