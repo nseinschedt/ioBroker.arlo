@@ -6,7 +6,7 @@ This adapter is still under development, feel free to submit pull requests...
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2020 nseinschedt <nseinschedt@seinschedt.de>
+Copyright (c) 2020 nseinschedt <nseinschedt@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
