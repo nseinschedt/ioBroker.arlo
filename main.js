@@ -34,6 +34,18 @@ function startAdapter(options) {
                         logout(arlo)
                     })
                 }
+            } else if(action === 'arm' && state.val) {
+                callback = device => {
+                    device.arm(() => {
+                        logout(arlo)
+                    })
+                }
+            } else if(action === 'disarm' && state.val) {
+                callback = device => {
+                    device.disarm(() => {
+                        logout(arlo)
+                    })
+                }
             }
             if(!callback) {
                 return
@@ -59,6 +71,30 @@ function startAdapter(options) {
                             adapter.setObject(device.getSerialNumber(), {
                                 type: 'device',
                                 common: {name: device.getType() + ' - ' + device.getName()},
+                                native: {}
+                            })
+                            adapter.setObject(device.getSerialNumber() + '.' + 'arm', {
+                                type: 'state',
+                                common: {
+                                    name: 'Arm',
+                                    type: 'boolean',
+                                    role: 'button',
+                                    read: false,
+                                    write: true,
+                                    def: false
+                                },
+                                native: {}
+                            })
+                            adapter.setObject(device.getSerialNumber() + '.' + 'disarm', {
+                                type: 'state',
+                                common: {
+                                    name: 'Disarm',
+                                    type: 'boolean',
+                                    role: 'button',
+                                    read: false,
+                                    write: true,
+                                    def: false
+                                },
                                 native: {}
                             })
                         })
