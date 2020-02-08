@@ -16,7 +16,8 @@
     "url": "https://github.com/nseinschedt/ioBroker.arlo"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3"
+    "@iobroker/adapter-core": "^1.0.3",
+    "node-arlo": "0.0.9"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
