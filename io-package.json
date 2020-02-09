@@ -23,7 +23,9 @@
     "authors": [
       "nseinschedt <nseinschedt@gmail.com>"
     ],
-    "mode": "daemon",
+    "mode": "schedule",
+    "schedule": "0,5 * * * *",
+    "allowInit": true,
     "icon": "arlo.png",
     "materialize": true,
     "enabled": true,
@@ -35,18 +37,20 @@
     "readme": "https://github.com/nseinschedt/ioBroker.arlo/blob/master/README.md",
     "loglevel": "info",
     "type": "multimedia",
-    "instanceObjects": [{
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "If communication with arlo works",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    }]
+    "instanceObjects": [
+      {
+        "_id": "info.connection",
+        "type": "state",
+        "common": {
+          "role": "indicator.connected",
+          "name": "If communication with arlo works",
+          "type": "boolean",
+          "read": true,
+          "write": false,
+          "def": false
+        },
+        "native": {}
+      }
+    ]
   }
 }
