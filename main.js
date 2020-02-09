@@ -73,43 +73,45 @@ function startAdapter(options) {
                                 common: {name: device.getType() + ' - ' + device.getName()},
                                 native: {}
                             })
-                            Request(
-                                {
-                                    url: ArloConstants.WEB.CLIENT.replace('/client', '') + '/users/devices/automation/active',
-                                    method: 'GET',
-                                    json: true,
-                                    jar: true,
-                                    headers: arlo.headers
-                                },
-                                (error, response, body) => {
-                                    if(body.data && body.data[0]) {
-                                        adapter.setObject(device.getSerialNumber() + '.' + 'mode', {
-                                            type: 'state',
-                                            common: {
-                                                name: 'Mode',
+                            setInterval(() => {
+                                Request(
+                                    {
+                                        url: ArloConstants.WEB.CLIENT.replace('/client', '') + '/users/devices/automation/active',
+                                        method: 'GET',
+                                        json: true,
+                                        jar: true,
+                                        headers: arlo.headers
+                                    },
+                                    (error, response, body) => {
+                                        if(body.data && body.data[0]) {
+                                            adapter.setObject(device.getSerialNumber() + '.' + 'mode', {
                                                 type: 'state',
-                                                role: 'state',
-                                                read: true,
-                                                write: false
-                                            },
-                                            native: {}
-                                        })
-                                        adapter.setState(device.getSerialNumber() + '.' + 'mode', body.data[0].activeModes[0] || '')
-                                        adapter.setObject(device.getSerialNumber() + '.' + 'schedule', {
-                                            type: 'state',
-                                            common: {
-                                                name: 'Schedule',
+                                                common: {
+                                                    name: 'Mode',
+                                                    type: 'state',
+                                                    role: 'state',
+                                                    read: true,
+                                                    write: false
+                                                },
+                                                native: {}
+                                            })
+                                            adapter.setState(device.getSerialNumber() + '.' + 'mode', body.data[0].activeModes[0] || '')
+                                            adapter.setObject(device.getSerialNumber() + '.' + 'schedule', {
                                                 type: 'state',
-                                                role: 'state',
-                                                read: true,
-                                                write: false
-                                            },
-                                            native: {}
-                                        })
-                                        adapter.setState(device.getSerialNumber() + '.' + 'schedule', body.data[0].activeSchedules[0] || '')
+                                                common: {
+                                                    name: 'Schedule',
+                                                    type: 'state',
+                                                    role: 'state',
+                                                    read: true,
+                                                    write: false
+                                                },
+                                                native: {}
+                                            })
+                                            adapter.setState(device.getSerialNumber() + '.' + 'schedule', body.data[0].activeSchedules[0] || '')
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }, 1000 * 60 * (parseInt(adapter.config.statePoll) || 10))
                             adapter.setObject(device.getSerialNumber() + '.' + 'arm', {
                                 type: 'state',
                                 common: {

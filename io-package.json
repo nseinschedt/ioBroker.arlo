@@ -23,9 +23,7 @@
     "authors": [
       "nseinschedt <nseinschedt@gmail.com>"
     ],
-    "mode": "schedule",
-    "schedule": "*/10 * * * *",
-    "allowInit": true,
+    "mode": "daemon",
     "icon": "arlo.png",
     "materialize": true,
     "enabled": true,
