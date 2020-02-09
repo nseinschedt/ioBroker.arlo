@@ -24,7 +24,7 @@
       "nseinschedt <nseinschedt@gmail.com>"
     ],
     "mode": "schedule",
-    "schedule": "0,5 * * * *",
+    "schedule": "*/10 * * * *",
     "allowInit": true,
     "icon": "arlo.png",
     "materialize": true,
