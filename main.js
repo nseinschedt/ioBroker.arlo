@@ -64,6 +64,45 @@ function startAdapter(options) {
                 arlo.on(ArloConstants.EVENT_GOT_DEVICES, deviceList => {
                     const baseStations = []
                     const devices = Object.values(deviceList)
+                    const getModesAndSchedule = device => {
+                        Request(
+                            {
+                                url: ArloConstants.WEB.CLIENT.replace('/client', '') + '/users/devices/automation/active',
+                                method: 'GET',
+                                json: true,
+                                jar: true,
+                                headers: arlo.headers
+                            },
+                            (error, response, body) => {
+                                if(body.data && body.data[0]) {
+                                    adapter.setObject(device.getSerialNumber() + '.' + 'mode', {
+                                        type: 'state',
+                                        common: {
+                                            name: 'Mode',
+                                            type: 'state',
+                                            role: 'state',
+                                            read: true,
+                                            write: false
+                                        },
+                                        native: {}
+                                    })
+                                    adapter.setState(device.getSerialNumber() + '.' + 'mode', body.data[0].activeModes[0] || '')
+                                    adapter.setObject(device.getSerialNumber() + '.' + 'schedule', {
+                                        type: 'state',
+                                        common: {
+                                            name: 'Schedule',
+                                            type: 'state',
+                                            role: 'state',
+                                            read: true,
+                                            write: false
+                                        },
+                                        native: {}
+                                    })
+                                    adapter.setState(device.getSerialNumber() + '.' + 'schedule', body.data[0].activeSchedules[0] || '')
+                                }
+                            }
+                        )
+                    }
                     devices
                         .filter(device => device.getType() === ArloConstants.TYPE_BASESTATION)
                         .forEach(device => {
@@ -73,45 +112,8 @@ function startAdapter(options) {
                                 common: {name: device.getType() + ' - ' + device.getName()},
                                 native: {}
                             })
-                            setInterval(() => {
-                                Request(
-                                    {
-                                        url: ArloConstants.WEB.CLIENT.replace('/client', '') + '/users/devices/automation/active',
-                                        method: 'GET',
-                                        json: true,
-                                        jar: true,
-                                        headers: arlo.headers
-                                    },
-                                    (error, response, body) => {
-                                        if(body.data && body.data[0]) {
-                                            adapter.setObject(device.getSerialNumber() + '.' + 'mode', {
-                                                type: 'state',
-                                                common: {
-                                                    name: 'Mode',
-                                                    type: 'state',
-                                                    role: 'state',
-                                                    read: true,
-                                                    write: false
-                                                },
-                                                native: {}
-                                            })
-                                            adapter.setState(device.getSerialNumber() + '.' + 'mode', body.data[0].activeModes[0] || '')
-                                            adapter.setObject(device.getSerialNumber() + '.' + 'schedule', {
-                                                type: 'state',
-                                                common: {
-                                                    name: 'Schedule',
-                                                    type: 'state',
-                                                    role: 'state',
-                                                    read: true,
-                                                    write: false
-                                                },
-                                                native: {}
-                                            })
-                                            adapter.setState(device.getSerialNumber() + '.' + 'schedule', body.data[0].activeSchedules[0] || '')
-                                        }
-                                    }
-                                )
-                            }, 1000 * 60 * (parseInt(adapter.config.statePoll) || 10))
+                            getModesAndSchedule(device)
+                            setInterval(() => getModesAndSchedule(device), 1000 * 60 * (parseInt(adapter.config.statePoll) || 10))
                             adapter.setObject(device.getSerialNumber() + '.' + 'arm', {
                                 type: 'state',
                                 common: {
